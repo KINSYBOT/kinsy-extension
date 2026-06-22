@@ -1,0 +1,560 @@
+#kinsai-hud {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 2147483647;
+  width: min(520px, calc(100vw - 32px));
+  font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: #3d2b1f;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 232, 0.98), rgba(247, 225, 187, 0.98));
+  border: 2px solid rgba(133, 96, 48, 0.26);
+  border-radius: 15px;
+  box-shadow:
+    0 14px 34px rgba(86, 55, 24, 0.24),
+    inset 0 1px 0 rgba(255,255,255,0.68);
+  user-select: none;
+  overflow: hidden;
+}
+
+#kinsai-hud.kinsai-hud-expanded-open {
+  width: min(560px, calc(100vw - 32px));
+}
+
+#kinsai-hud.kinsai-hud-minimized {
+  width: min(292px, calc(100vw - 32px));
+}
+
+#kinsai-hud .kinsai-hud-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 251, 240, 0.7);
+  border-bottom: 2px solid rgba(133, 96, 48, 0.14);
+}
+
+#kinsai-hud.kinsai-hud-minimized .kinsai-hud-head {
+  border-bottom: none;
+}
+
+#kinsai-hud .kinsai-hud-head img {
+  width: 34px;
+  height: 34px;
+  filter: drop-shadow(0 3px 0 rgba(116, 78, 30, 0.12));
+}
+
+#kinsai-hud .kinsai-hud-head strong {
+  display: block;
+  font-family: "VT323", ui-monospace, monospace;
+  font-size: 20px;
+  line-height: 0.95;
+  letter-spacing: 0.5px;
+  color: #3d2b1f;
+}
+
+#kinsai-hud .kinsai-hud-head span {
+  color: #7b6248;
+  font-size: 10px;
+}
+
+#kinsai-hud .kinsai-hud-head button {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border: 2px solid rgba(133, 96, 48, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 249, 235, 0.82);
+  color: #3d2b1f;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#kinsai-hud .kinsai-hud-body {
+  padding: 10px 12px 12px;
+  display: grid;
+  gap: 8px;
+}
+
+#kinsai-hud.kinsai-hud-minimized .kinsai-hud-body {
+  display: none;
+}
+
+#kinsai-hud .kinsai-hud-title {
+  font-family: "VT323", ui-monospace, monospace;
+  font-size: 15px;
+  color: #6f5943;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#kinsai-hud .kinsai-hud-setup {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 7px;
+}
+
+#kinsai-hud .kinsai-hud-setup[hidden] {
+  display: none;
+}
+
+#kinsai-hud .kinsai-hud-setup button {
+  appearance: none;
+  min-height: 38px;
+  border: 2px solid rgba(77, 151, 49, 0.52);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #f6ffd8, #dcefae);
+  color: #346f25;
+  font-family: inherit;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 2px rgba(100, 181, 62, 0.14);
+}
+
+#kinsai-hud .kinsai-hud-setup button:disabled {
+  opacity: 0.62;
+  cursor: wait;
+}
+
+#kinsai-hud .kinsai-hud-stats {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 8px;
+  border: 2px solid rgba(133, 96, 48, 0.18);
+  border-radius: 9px;
+  background: rgba(255, 249, 235, 0.82);
+}
+
+#kinsai-hud .kinsai-hud-stats div {
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+}
+
+#kinsai-hud .kinsai-hud-stats dt,
+#kinsai-hud .kinsai-hud-label {
+  color: #72583d;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#kinsai-hud .kinsai-hud-stats dd {
+  margin: 0;
+  font-family: "VT323", ui-monospace, monospace;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#kinsai-hud .kinsai-hud-stats div:nth-child(1) dd { color: #168bad; }
+#kinsai-hud .kinsai-hud-stats div:nth-child(2) dd { color: #9a6511; }
+
+#kinsai-hud .kinsai-hud-resources {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+#kinsai-hud .kinsai-hud-resource {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "icon value"
+    "icon label";
+  column-gap: 5px;
+  align-items: center;
+  padding: 6px 7px;
+  border: 2px solid rgba(133, 96, 48, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 249, 235, 0.78);
+}
+
+#kinsai-hud .kinsai-hud-resource span {
+  grid-area: icon;
+  font-size: 14px;
+}
+
+#kinsai-hud .kinsai-hud-resource strong {
+  grid-area: value;
+  color: #3d2b1f;
+  font-size: 12px;
+  line-height: 1.05;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#kinsai-hud .kinsai-hud-resource em {
+  grid-area: label;
+  color: #7b6248;
+  font-style: normal;
+  font-size: 8px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+#kinsai-hud ol {
+  list-style: none;
+  margin: 0;
+  padding: 7px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 110px;
+  overflow-y: auto;
+  border: 2px solid rgba(133, 96, 48, 0.16);
+  border-radius: 9px;
+  background: rgba(255, 249, 235, 0.72);
+  color: #5f4a37;
+}
+
+#kinsai-hud:not(.kinsai-hud-expanded-open):not(.kinsai-hud-minimized) ol {
+  max-height: 194px;
+}
+
+#kinsai-hud ol li {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 5px;
+}
+
+#kinsai-hud ol time {
+  color: #168bad;
+  font-weight: 900;
+}
+
+#kinsai-hud .kinsai-hud-expanded {
+  display: none;
+  gap: 10px;
+  border-top: 2px solid rgba(133, 96, 48, 0.14);
+  padding-top: 10px;
+}
+
+#kinsai-hud.kinsai-hud-expanded-open .kinsai-hud-expanded {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#kinsai-hud .kinsai-hud-status-row,
+#kinsai-hud .kinsai-hud-mode-panel,
+#kinsai-hud .kinsai-hud-safety,
+#kinsai-hud .kinsai-hud-actions,
+#kinsai-hud .kinsai-hud-disconnect {
+  grid-column: 1 / -1;
+}
+
+#kinsai-hud .kinsai-hud-status-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+#kinsai-hud .kinsai-hud-status-row span {
+  min-width: 0;
+  padding: 7px 8px;
+  border: 2px solid rgba(133, 96, 48, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 249, 235, 0.78);
+  color: #3d8d2c;
+  font-size: 10px;
+  font-weight: 900;
+  text-align: center;
+}
+
+#kinsai-hud .kinsai-hud-mode-panel,
+#kinsai-hud .kinsai-hud-safety {
+  display: grid;
+  gap: 8px;
+}
+
+#kinsai-hud .kinsai-hud-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+  padding: 4px;
+  border: 2px solid rgba(133, 96, 48, 0.16);
+  border-radius: 9px;
+  background: rgba(248, 226, 188, 0.55);
+}
+
+#kinsai-hud .kinsai-hud-tabs button,
+#kinsai-hud .kinsai-hud-mode-grid button,
+#kinsai-hud .kinsai-hud-actions button,
+#kinsai-hud .kinsai-hud-disconnect {
+  appearance: none;
+  border: 2px solid rgba(133, 96, 48, 0.20);
+  border-radius: 8px;
+  background: rgba(255, 249, 235, 0.82);
+  color: #3d2b1f;
+  font-family: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+#kinsai-hud .kinsai-hud-tabs button {
+  min-height: 34px;
+  font-size: 11px;
+}
+
+#kinsai-hud .kinsai-hud-tabs button.is-active {
+  color: #3d8d2c;
+  border-color: rgba(77, 151, 49, 0.56);
+  background: linear-gradient(180deg, #e8f6c9, #d8edac);
+}
+
+#kinsai-hud .kinsai-hud-mode-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+}
+
+#kinsai-hud .kinsai-hud-mode-grid button {
+  min-height: 62px;
+  padding: 6px 3px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 3px;
+}
+
+#kinsai-hud .kinsai-hud-mode-grid span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+#kinsai-hud .kinsai-hud-mode-grid b {
+  font-size: 10px;
+  line-height: 1.1;
+}
+
+#kinsai-hud .kinsai-hud-mode-grid em,
+#kinsai-hud .kinsai-hud-safety em {
+  color: #8f7658;
+  font-style: normal;
+  font-size: 8px;
+  text-transform: uppercase;
+}
+
+#kinsai-hud .kinsai-hud-mode-grid button.is-selected {
+  border-color: rgba(77, 151, 49, 0.72);
+  background: linear-gradient(180deg, #f6ffd8, #dcefae);
+  box-shadow: inset 0 0 0 2px rgba(100, 181, 62, 0.22);
+}
+
+#kinsai-hud .is-disabled,
+#kinsai-hud button:disabled,
+#kinsai-hud .kinsai-hud-safety section {
+  opacity: 0.44;
+  filter: grayscale(0.65);
+  cursor: not-allowed;
+}
+
+#kinsai-hud .kinsai-hud-actions {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 8px;
+}
+
+#kinsai-hud .kinsai-hud-actions button {
+  min-height: 40px;
+}
+
+#kinsai-hud .kinsai-hud-actions button:first-child {
+  color: #fffdf2;
+  border-color: rgba(61, 141, 44, 0.55);
+  background: linear-gradient(180deg, #93d957, #5caf34);
+  text-shadow: 0 1px 0 rgba(34, 92, 24, 0.35);
+}
+
+#kinsai-hud .kinsai-hud-actions button:nth-child(2),
+#kinsai-hud .kinsai-hud-disconnect {
+  color: #a33d33;
+  border-color: rgba(201, 95, 75, 0.32);
+  background: rgba(255, 237, 225, 0.84);
+}
+
+#kinsai-hud .kinsai-hud-safety {
+  grid-template-columns: 1fr 1fr;
+}
+
+#kinsai-hud .kinsai-hud-safety .kinsai-hud-label {
+  grid-column: 1 / -1;
+}
+
+#kinsai-hud .kinsai-hud-safety section,
+#kinsai-hud .kinsai-hud-setting-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px;
+  align-items: center;
+  padding: 7px 8px;
+  border: 2px solid rgba(133, 96, 48, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 249, 235, 0.78);
+}
+
+#kinsai-hud .kinsai-hud-setting-card {
+  min-width: 0;
+  min-height: 46px;
+  gap: 8px;
+  border-color: rgba(77, 151, 49, 0.28);
+  background: rgba(255, 249, 235, 0.86);
+  color: #3d2b1f;
+}
+
+#kinsai-hud .kinsai-hud-setting-copy {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+#kinsai-hud .kinsai-hud-setting-title {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+#kinsai-hud .kinsai-hud-setting-icon {
+  width: 18px;
+  color: #3d8d2c;
+  font-size: 14px;
+  text-align: center;
+}
+
+#kinsai-hud .kinsai-hud-setting-subtitle {
+  padding-left: 25px;
+  color: #7b6248;
+  font-size: 8px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+#kinsai-hud .kinsai-hud-info {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  border: 1px solid rgba(133, 96, 48, 0.30);
+  border-radius: 50%;
+  color: #8f7658;
+  font-size: 10px;
+  line-height: 1;
+  cursor: help;
+}
+
+#kinsai-hud .kinsai-hud-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  z-index: 6;
+  width: 188px;
+  padding: 9px 12px;
+  display: grid;
+  gap: 5px;
+  border: 2px solid rgba(133, 96, 48, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 251, 240, 0.98);
+  box-shadow: 0 8px 18px rgba(86, 55, 24, 0.16);
+  color: #5f4a37;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1.35;
+  opacity: 0;
+  pointer-events: none;
+  text-align: left;
+  transform: translateX(-50%) translateY(2px);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+#kinsai-hud .kinsai-hud-tooltip span::before {
+  content: "• ";
+}
+
+#kinsai-hud .kinsai-hud-tooltip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 251, 240, 0.98);
+  border-right: 2px solid rgba(133, 96, 48, 0.18);
+  border-bottom: 2px solid rgba(133, 96, 48, 0.18);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+#kinsai-hud .kinsai-hud-info:hover .kinsai-hud-tooltip,
+#kinsai-hud .kinsai-hud-info:focus .kinsai-hud-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+#kinsai-hud .kinsai-hud-switch {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  flex: 0 0 auto;
+}
+
+#kinsai-hud .kinsai-hud-switch input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#kinsai-hud .kinsai-hud-switch > span {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(133, 96, 48, 0.20);
+  border-radius: 999px;
+  background: rgba(185, 164, 132, 0.42);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.62);
+}
+
+#kinsai-hud .kinsai-hud-switch > span::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fffdf2;
+  box-shadow: 0 2px 4px rgba(86, 55, 24, 0.18);
+  transition: transform 120ms ease;
+}
+
+#kinsai-hud .kinsai-hud-switch input:checked + span {
+  border-color: rgba(61, 141, 44, 0.45);
+  background: linear-gradient(180deg, #8fd559, #5caf34);
+}
+
+#kinsai-hud .kinsai-hud-switch input:checked + span::after {
+  transform: translateX(24px);
+}
+
+#kinsai-hud .kinsai-hud-disconnect {
+  min-height: 36px;
+}
+
+#kinsai-hud[data-running="true"] .kinsai-hud-head strong {
+  text-shadow: 0 0 8px rgba(80, 173, 98, 0.25);
+}

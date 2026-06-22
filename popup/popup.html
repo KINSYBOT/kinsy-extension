@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>KINSY</title>
+<link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+<div class="bg-grid" aria-hidden="true"></div>
+
+<header class="head">
+  <img src="../icons/icon48.png" alt="" width="58" height="58" />
+  <div class="head-name">
+    <strong>KINSY</strong>
+    <span id="head-subtitle">your Kintara companion</span>
+  </div>
+</header>
+
+<main class="view">
+  <section class="status-card">
+    <div class="status-row">
+      <span id="wallet-chip" class="status-chip">○ Wallet</span>
+      <span id="session-chip" class="status-chip">○ Session</span>
+    </div>
+    <dl class="mini-stats">
+      <div><dt>Wallet</dt><dd id="wallet-value">—</dd></div>
+      <div><dt>Loop</dt><dd id="loop-value">idle</dd></div>
+    </dl>
+    <p id="popup-copy">
+      Open Kintara to use the in-game KINSY panel. The toolbar is only for setup and session controls.
+    </p>
+  </section>
+
+  <section id="setup-actions" class="action-stack">
+    <button id="btn-connect" class="btn btn-primary" type="button">Connect Phantom</button>
+    <button id="btn-authorize" class="btn btn-primary" type="button" hidden>Wake KINSY</button>
+    <button id="btn-open-game" class="btn btn-ghost" type="button">Open Kintara</button>
+  </section>
+
+  <section id="live-actions" class="action-stack" hidden>
+    <button id="btn-open-hud" class="btn btn-primary" type="button">Open Kintara panel</button>
+    <button id="btn-toggle" class="btn btn-ghost" type="button">▶ Start</button>
+    <button id="btn-revoke" class="btn btn-danger" type="button">Revoke session</button>
+    <button id="btn-disconnect" class="btn btn-link" type="button">Disconnect wallet</button>
+  </section>
+
+  <p id="connect-hint" class="hint">
+    If the HUD still looks old, reload KINSY on <code>chrome://extensions</code> and refresh Kintara.
+  </p>
+</main>
+
+<footer class="foot">
+  <a href="https://kinsy.fun" target="_blank">kinsy.fun</a>
+  <span>·</span>
+  <a href="https://kintara.com" target="_blank">kintara.com ↗</a>
+</footer>
+
+<script src="popup.js" type="module"></script>
+</body>
+</html>
