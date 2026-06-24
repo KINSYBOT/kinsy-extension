@@ -280,8 +280,8 @@ async function kintaraFetch({ host = 'kintara.com', method = 'GET', path, body, 
     try {
       res = await fetch(sameOrigin ? path : url, init);
     } catch (err) {
-      if (!sameOrigin) throw err;
-      res = await fetch(url, init);
+      if (!isKintaraApiHost(requestHost)) throw err;
+      res = await fetch(alternateKintaraUrl(requestHost, path), init);
     }
   } finally {
     clearTimeout(timer);
@@ -304,6 +304,13 @@ function isKintaraApiHost(hostname) {
     hostname.endsWith('.kintara.com') ||
     hostname === 'kintara.gg' ||
     hostname.endsWith('.kintara.gg');
+}
+
+function alternateKintaraUrl(hostname, path) {
+  const nextHost = hostname.endsWith('kintara.gg')
+    ? hostname.replace(/kintara\.gg$/i, 'kintara.com')
+    : hostname.replace(/kintara\.com$/i, 'kintara.gg');
+  return `https://${nextHost}${path}`;
 }
 
 // ----- 2. HUD overlay ----------------------------------------------------
